@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/tk-color-test/static/css/main.698e203a.css",
+    "main.js": "/tk-color-test/static/js/main.6648fa2e.js",
+    "static/js/787.fdbcf949.chunk.js": "/tk-color-test/static/js/787.fdbcf949.chunk.js",
+    "index.html": "/tk-color-test/index.html",
+    "main.698e203a.css.map": "/tk-color-test/static/css/main.698e203a.css.map",
+    "main.6648fa2e.js.map": "/tk-color-test/static/js/main.6648fa2e.js.map",
+    "787.fdbcf949.chunk.js.map": "/tk-color-test/static/js/787.fdbcf949.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.698e203a.css",
+    "static/js/main.6648fa2e.js"
+  ]
+}
