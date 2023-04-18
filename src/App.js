@@ -1,22 +1,22 @@
 import "./App.css";
 import "normalize.css";
 import LoadImage from "./LoadImage";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Parameter from "./Parameter";
 import Palette from "./Palette";
 
 function App() {
   const [material, setMaterial] = useState(null);
-  const [preview, setPreview] = useState(material);
   const [r, setR] = useState();
   const [g, setG] = useState();
   const [b, setB] = useState();
   const [s, setS] = useState();
   const [isPalette, setIsPalette] = useState(false);
+  const canvasRef = useRef();
 
   return (
     <div className="App">
-      <h1>RPGツクール2000 色調シミュレータ (β)</h1>
+      <h1>RPGツクール2000 色調シミュレータ</h1>
       <h2>画像読み込み</h2>
       <LoadImage
         setMaterial={setMaterial}
@@ -28,10 +28,9 @@ function App() {
       {material && (
         <>
           <h2>プレビュー</h2>
-          <img src={preview} alt="preview" />
+          <canvas ref={canvasRef} width={100} height={100}></canvas>
           <h2>パラメータ</h2>
           <Parameter
-            setPreview={setPreview}
             material={material}
             r={r}
             g={g}
@@ -42,6 +41,7 @@ function App() {
             setB={setB}
             setS={setS}
             isPalette={isPalette}
+            canvasRef={canvasRef}
           />
           <div className="paletteChoice">
             <h3>
@@ -77,6 +77,10 @@ function App() {
         ピクチャ、戦闘アニメの画像表示および、「画面の色調変更」イベントでの結果をシミュレーションします。<br />
         画像を読み込むと、UIが出ます。
       </p>
+      <p>
+        色調のアルゴリズム詳細は、下記記事にまとめてあります。<br />
+        <a href="https://lpre-ys.fanbox.cc/posts/5738528">RPGツクール2000の、ちょっと不思議な「色調」の話</a>
+      </p>
       <h2>HSVモード？</h2>
       <p>
         赤、緑、青の色の強さを、HSV方式で選択するツールです。<br />
@@ -103,6 +107,19 @@ function App() {
         <br />
         コマアニメやUIのため、縦または横につなげた画像を使う場合も、できれば、結合前の画像でテストしたほうが無難です。
       </p>
+      <h2>更新履歴</h2>
+      <dl>
+        <dt>2023.04.14</dt>
+        <dd>β版公開</dd>
+      </dl>
+      <dl>
+        <dt>2023.04.18</dt>
+        <dd>
+          FireFoxで一部スタイルが当たらない問題の修正<br />
+          canvasで生成した画像をimgタグで表示していたが、無駄に重いので、canvasをそのまま表示するよう変更<br />
+          以上2点を以て、正式版と言う事でβ表記を削除
+        </dd>
+      </dl>
     </div>
   );
 }

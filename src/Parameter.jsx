@@ -6,7 +6,6 @@ const FACTOR_G = 0.6;
 const FACTOR_B = 0.1;
 
 export default function Parameter({
-  setPreview,
   material,
   r,
   g,
@@ -17,18 +16,19 @@ export default function Parameter({
   setB,
   setS,
   isPalette,
+  canvasRef,
 }) {
   useEffect(() => {
     loadImage(material).then((original) => {
       if (original) {
-        const width = original.width;
-        const height = original.height;
+        const width = original.naturalWidth;
+        const height = original.naturalHeight;
 
         // キャンバスへ画像のロード
-        const canvas = document.createElement("canvas");
+        const canvas = canvasRef.current;
         canvas.width = width;
         canvas.height = height;
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
         ctx.drawImage(original, 0, 0);
         const imageData = ctx.getImageData(0, 0, width, height);
         // 各ピクセルのデータを取得
@@ -73,10 +73,9 @@ export default function Parameter({
         }
 
         ctx.putImageData(imageData, 0, 0);
-        setPreview(canvas.toDataURL());
       }
     });
-  }, [material, setPreview, r, g, b, s]);
+  }, [material, r, g, b, s, canvasRef]);
 
   return (
     <div className="paramContainer">
